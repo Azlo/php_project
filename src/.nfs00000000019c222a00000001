@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Liste de films</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../select_2/select2.css" />
+	</head>
+
+	<body>
+		<form method="POST" action="">
+			<input name="recherche" type="text">
+			<select id="e1" name="genre" class="selectpicker span2">
+				<option>aucun</option>
+				<?php 
+					require("connect.php");
+					
+						try{
+							$connexion = new PDO(DSN,USER,PASSWD);
+						}
+						catch(PDOException $e){
+							printf("Échec de la connexion : %s\n", $e->getMessage());
+							exit();
+						}
+
+					$sql = "SELECT * from genres";
+					$stmt = $connexion->prepare($sql);
+					$stmt -> execute();
+
+					while($res=$stmt->fetch(PDO::FETCH_OBJ)){
+						echo "\t\t\t\t".'<option>' . utf8_encode($res->nom_genre) . '</option>'."\n";
+					}
+
+					echo '</select>';
+					echo '<input type="submit" value="Rechercher"><br/>'."\n";
+					
+					if (empty($_POST["genre"])) {}
+					else {
+						if ($_POST["genre"] == "aucun") {
+							$sql="SELECT * from films";
+						}
+						else {
+							$sql = "SELECT code_film, titre_original, titre_francais, pays, date, duree, couleur, realisateur, image
+									FROM films f, genres g, classification c
+									WHERE f.code_film = c.ref_code_film
+									AND c.ref_code_genre = g.code_genre
+									AND nom_genre='".$_POST["genre"]."'
+									ORDER BY titre_francais";
+						}
+
+						$stmt=$connexion->prepare($sql);
+						$stmt->execute();
+
+						echo "<table>\n";
+						while($res=$stmt->fetch(PDO::FETCH_OBJ)){
+							echo "\t<tr>\n";
+							echo "\t\t".'<td><a href="http://www.allocine.fr/recherche/?q='.utf8_encode($res->titre_francais).
+								'" target="blank">'.utf8_encode($res->titre_francais).'</a><td/>'."\n";
+							echo "\t\t<td>".utf8_encode($res->titre_original)."<td/>\n";
+							echo "\t\t<td>".utf8_encode($res->pays)."<td/>\n";
+							echo "\t\t<td>".utf8_encode($res->date)."<td/>\n";
+							echo "\t\t<td>".utf8_encode($res->duree)."<td/>\n";
+							echo "\t\t<td>".utf8_encode($res->couleur)."<td/>\n";
+							echo "\t\t<td>".utf8_encode($res->realisateur)."<td/>\n";
+							echo "\t\t<td>".utf8_encode($res->image)."<td/>\n";
+							echo "\t</tr>\n";
+						}
+						echo "</table>\n";
+					}
+				?>
+		</form>
+
+		<script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script language="javascript" type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+		<script language="javascript" type="text/javascript" src="../select_2/select2.js"></script>
+		<script>$(document).ready(function() { $("#e1").select2({ placeholder: "Select a State",
+allowClear: true}); });</script>
+	</body>
+</html>
+

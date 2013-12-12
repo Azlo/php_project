@@ -1,0 +1,122 @@
+<?php
+	function queryBuild() {
+		$select = "SELECT code_film, titre_original, titre_francais, pays, date, duree, couleur, realisateur, image, nom, prenom";
+
+		$cpt = 0;
+		$from = " FROM films f, individus i";
+		$where = "";
+		$str = "";
+
+		if (!empty($_POST["genres"])) {
+			
+			$genres = $_POST["genres"];
+
+			if ($genres != "") {
+				$cpt++;
+				$where = $where . " WHERE nom_genre='" . str_replace("'", "''", $genres) . "'";
+			}
+
+			$from = $from . ", genres g, classification c";
+			$where = $where . " AND f.code_film = c.ref_code_film AND c.ref_code_genre = g.code_genre";
+
+		}
+
+
+		if (!empty($_POST["pays"])) {
+			
+			$pays = $_POST["pays"];
+
+			if ($cpt > 0) {
+				$where = $where . " AND pays='" . $pays . "'";
+			}
+			else {
+				$where = $where . " WHERE pays='" . $pays . "'";
+				$cpt++;
+			}
+		}
+
+
+		if (!empty($_POST["acteurs"])) {
+
+			$acteurs = $_POST["acteurs"];
+
+			if ($cpt > 0) {
+				$where = $where . " AND code_indiv='" . $acteurs . "'";
+			}
+			else {
+				$where = $where . " WHERE code_indiv='" . $acteurs . "'";
+				$cpt++;
+			}
+
+			$str = "acteurs";
+			if(preg_match('#'.$str.'#', $from)){
+
+			}
+			else {
+				$from = $from . ', acteurs a, individus i';
+				$where = $where . ' AND a.ref_code_film = f.code_film AND a.ref_code_acteur = i.code_indiv';
+			}
+		}
+
+
+		if (!empty($_POST["realisateur"])) {
+			$realisateur = $_POST["realisateur"];
+
+			if ($cpt > 0) {
+				$where = $where . " AND realisateur='" . $realisateur . "'";
+			}
+			else {
+				$where = $where . " WHERE realisateur='" . $realisateur . "'";
+				$cpt++;
+			}
+
+			$str = "individus";
+			if(preg_match('#'.$str.'#', $from)){
+
+			}
+			else {
+				$from = $from . ',individus i';
+				$where = $where . 'AND f.realisateur = i.code_indiv';
+			}
+		}
+
+
+		if (!empty($_POST["date"])) {
+			$date = $_POST["date"];
+
+			if ($cpt > 0) {
+				$where = $where . " AND date='" . $date . "'";
+			}
+			else {
+				$where = $where . " WHERE date='" . $date . "'";
+				$cpt++;
+			}
+		}
+
+
+		if (!empty($_POST["couleur"])) {
+			$couleur = $_POST["couleur"];
+
+			if ($cpt > 0) {
+				$where = $where . " AND couleur='" . $couleur . "'";
+			}
+			else {
+				$where = $where . " WHERE couleur='" . $couleur . "'";
+				$cpt++;
+			}
+		}
+
+		echo "<br/>";echo "GENRES : ";
+		var_dump($_POST["genres"]);
+		echo "<br/>";
+		echo "LE FROOOOOOM : ";
+		var_dump($from);echo "<br/>";
+		echo "LE WHEEEEERE : ";
+		var_dump($where);echo "<br/>";
+
+	$query = $select . $from . $where;
+	echo "LE TOTAAAAAAL : ";
+	var_dump($query);
+	return $query;
+	}
+?>
