@@ -210,21 +210,22 @@
 // ******MISE EN MEMOIRE REQUETE*****
 // **********************************
 				if (!empty($_POST)) {
-					if (!empty($_POST["genres"])) {		echo '$("#e1").val('. $_POST["genres"] .');';};
-					if (!empty($_POST["pays"])) {		echo '$("#e2").val('. $_POST["pays"] .');';};
-					if (!empty($_POST["acteurs"])) {	echo '$("#e3").val('. $_POST["acteurs"] .');';};
-					if (!empty($_POST["realisateur"])) {echo '$("#e4").val('. $_POST["realisateur"] .');';};
-					if (!empty($_POST["date"])) {		echo '$("#e5").val('. $_POST["date"] .');';};
-					if (!empty($_POST["couleur"])) {	echo '$("#e6").val('. $_POST["couleur"] .');';};
+					if (!empty($_POST["genres"])) {		echo '$("#e1").val('.$_POST["genres"].');'		;};
+					if (!empty($_POST["pays"])) {		echo '$("#e2").val('.$_POST["pays"].');'		;};
+					if (!empty($_POST["acteurs"])) {	echo '$("#e3").val('.$_POST["acteurs"].');'		;};
+					if (!empty($_POST["realisateur"])) {echo '$("#e4").val('.$_POST["realisateur"].');'	;};
+					if (!empty($_POST["date"])) {		echo '$("#e5").val('.$_POST["date"].');'		;};
+					if (!empty($_POST["couleur"])) {	echo '$("#e6").val('.$_POST["couleur"].');'		;};
 				};
 			?>
 		</script>
 		<?php
-			$url = 'http://apis.bdfci.info/0.8/request.php?ask=apocalypto';
-			$dom = new DOMDocument();
-			$xml = $dom->loadHTMLFile($url);	
-			$urlAffichette = $dom->getElementsByTagName('affichette');
-			echo $urlAffichette;
+$channel = "channelName";
+$url = "http://gdata.youtube.com/feeds/api/users/".$channel."/uploads";
+$xml = file_get_contents($url);
+ 
+$feed = simplexml_load_string($xml);
+$ns=$feed->getNameSpaces(true);
 		?>
 	</body>
 </html>
