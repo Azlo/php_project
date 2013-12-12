@@ -15,11 +15,11 @@
 			$genres = $_POST["genres"];
 
 			if ($genres != "") {
-				$where = $where . " AND code_genre='" . $genres . "'";
+				$where .= " AND code_genre='" . $genres . "'";
 			}
 
-			$from = $from . ", genres g, classification c";
-			$where = $where . " AND f.code_film = c.ref_code_film AND c.ref_code_genre = g.code_genre";
+			$from .= ", genres g, classification c";
+			$where .= " AND f.code_film = c.ref_code_film AND c.ref_code_genre = g.code_genre";
 
 		}
 
@@ -27,51 +27,51 @@
 		if (!empty($_POST["pays"])) {
 			
 			$pays = $_POST["pays"];
-			$where = $where . " AND pays='" . $pays . "'";
+			$where .= " AND pays='" . $pays . "'";
 		}
 
 
 		if (!empty($_POST["acteurs"])) {
 
 			$acteurs = $_POST["acteurs"];
-			$where = $where . " AND Iacteurs.code_indiv='" . $acteurs . "'";
+			$where .= " AND Iacteurs.code_indiv='" . $acteurs . "'";
 
 			$str = "acteurs";
 			if(preg_match('#'.$str.'#', $from)){
 
 			}
 			else {
-				$from = $from . ', acteurs a, individus Iacteurs';
-				$where = $where . ' AND a.ref_code_film = f.code_film AND a.ref_code_acteur = Iacteurs.code_indiv';
+				$from .= ', acteurs a, individus Iacteurs';
+				$where .= ' AND a.ref_code_film = f.code_film AND a.ref_code_acteur = Iacteurs.code_indiv';
 			}
-			$select = $select . ', Iacteurs.nom AS nomActeurs, Iacteurs.prenom AS prenomActeurs';
+			$select .= ', Iacteurs.nom AS nomActeurs, Iacteurs.prenom AS prenomActeurs';
 		}
 
 
 		if (!empty($_POST["realisateur"])) {
 			$realisateur = $_POST["realisateur"];
-			$where = $where . " AND realisateur='" . $realisateur . "'";
+			$where .= " AND realisateur='" . $realisateur . "'";
 
 			$str = "individus";
 			if(preg_match('#'.$str.'#', $from)){
 
 			}
 			else {
-				$from = $from . ',individus i';
-				$where = $where . 'AND f.realisateur = i.code_indiv';
+				$from .= ',individus i';
+				$where .= 'AND f.realisateur = i.code_indiv';
 			}
 		}
 
 
 		if (!empty($_POST["date"])) {
 			$date = $_POST["date"];
-			$where = $where . " AND date='" . $date . "'";
+			$where .= " AND date='" . $date . "'";
 		}
 
 
 		if (!empty($_POST["couleur"])) {
 			$couleur = $_POST["couleur"];
-			$where = $where . " AND couleur='" . $couleur . "'";
+			$where .= " AND couleur='" . $couleur . "'";
 		}
 
 		echo "<br/>";echo "GENRES : ";

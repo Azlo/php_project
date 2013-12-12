@@ -180,10 +180,11 @@
 
 					// Fermeture du curseur
 					$stmt->closeCursor();
+
 ?>
 
 		<form method="POST" action="xmlGenerator.php">
-			<input type="hidden" name="postQuery" value="<?php $sql ?>"><br/>
+			<input type="hidden" name="postQuery" value="<?php echo $sql; ?>"><br/>
 			<input class="btn" type="submit" value="Export XML">
 		</form>
 
@@ -216,16 +217,10 @@
 					if (!empty($_POST["realisateur"])) {echo '$("#e4").val('.$_POST["realisateur"].');'	;};
 					if (!empty($_POST["date"])) {		echo '$("#e5").val('.$_POST["date"].');'		;};
 					if (!empty($_POST["couleur"])) {	echo '$("#e6").val('.$_POST["couleur"].');'		;};
+					echo '$("#postQuery").val('.$sql.');';
 				};
 			?>
 		</script>
-		<?php
-$channel = "channelName";
-$url = "http://gdata.youtube.com/feeds/api/users/".$channel."/uploads";
-$xml = file_get_contents($url);
- 
-$feed = simplexml_load_string($xml);
-$ns=$feed->getNameSpaces(true);
-		?>
+
 	</body>
 </html>

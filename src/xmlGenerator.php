@@ -21,35 +21,39 @@
 
 	while($res=$stmt->fetch(PDO::FETCH_OBJ)) {
 		$tableau[] = array (
-			"titre_original" => $res['titre_original'],
-			"realisateur" => $res['realisateur'],
-			"date" => $res['date'],
-			"code_film" => $res['code_film'],
+			"titre_original" => str_replace("&", "et", $res->titre_original),
+			"realisateur" => str_replace("&", "et", $res->realisateur),
+			"date" => $res->date,
+			"code_film" => $res->code_film,
 		);
 	}
+
+	$monXml = "";
  
-	//Parcour le tableau pour en extraire les données
 	foreach($tableau as $info)
 	{
 		$titre_original = $info['titre_original'];
 		$realisateur = $info['realisateur'];
 		$date = $info['date'];
 		$code_film = $info['code_film'];
-?>
-		<film>
-			<titre_original><?php echo $titre_original; ?></titre_original>
-			<realisateur><?php echo $realisateur; ?></realisateur>
-			<date><?php echo $date; ?></date>
-		</film>
-<?php
-	//Fermeture de la boucle qui parcour le tableau
+		$affichage='';
+
+		$affichage = $monXml .='<film>' . "\n";
+		$affichage = $monXml .="\t".'<titre_original>'. utf8_encode(rtrim($titre_original)) .'</titre_original>' . "\n";
+		$affichage = $monXml .="\t".'<realisateur>'. utf8_encode(rtrim($realisateur)) .'</realisateur>' . "\n";
+		$affichage = $monXml .="\t".'<date>'. utf8_encode(rtrim($date)) .'</date>' . "\n";
+		$affichage = $monXml .='</film>' . "\n";
+
+		echo $affichage;
+
+		utf8_encode($monXml);
+
+
+		if ($fp = fopen("ESSAI.xml",'w'))
+		{
+		 fputs($fp,$monXml);
+		 fclose($fp);
+		}
 }
 ?>
 </liste>
-
-
-
-
-
-
-
