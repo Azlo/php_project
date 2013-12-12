@@ -1,4 +1,8 @@
 <?php
+// **********************************
+// ***FONCTION CONSTRUCTION REQUETE**
+// **********************************
+//  (Mini moteur de recherche php)
 	function queryBuild() {
 		$select = "SELECT code_film, titre_original, titre_francais, pays, date, duree, couleur, realisateur, image, Irealisateur.nom AS nomRealisateur, Irealisateur.prenom AS prenomRealisateur";
 

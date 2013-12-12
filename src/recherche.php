@@ -180,13 +180,6 @@
 
 					// Fermeture du curseur
 					$stmt->closeCursor();
-
-	$url = "http://apis.bdfci.info/0.8/request.php?ask=apocalypto";
-	$xml = new DOMDocument();
-	$xml->loadHTMLFile($url);	
-	$urlAffichette = $dom->getElementsByTagName('affichette');
-	echo $urlAffichette;
-
 ?>
 
 		<form method="POST" action="xmlGenerator.php">
@@ -226,5 +219,12 @@
 				};
 			?>
 		</script>
+		<?php
+			$url = 'http://apis.bdfci.info/0.8/request.php?ask=apocalypto';
+			$dom = new DOMDocument();
+			$xml = $dom->loadHTMLFile($url);	
+			$urlAffichette = $dom->getElementsByTagName('affichette');
+			echo $urlAffichette;
+		?>
 	</body>
 </html>
