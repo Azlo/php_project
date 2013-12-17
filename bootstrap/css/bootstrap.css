@@ -3884,6 +3884,11 @@ input[type="submit"].btn.btn-mini {
           border-radius: 4px;
 }
 
+.jumbotron{
+    background-color:#ff3600;
+    color:white;
+}
+
 .alert,
 .alert h4 {
   color: #c09853;

@@ -74,25 +74,43 @@
 			utf8_encode($monXml);
 
 		// On ouvre un fichier en mode écriture, et l'on y place la chaine de caractère
-			if ($fp = fopen("../xml/ESSAI.xml",'w'))
+			if ($fp = fopen("../xml/export_film.xml",'w'))
 			{
 				fputs($fp,$monXml);
 				fclose($fp);
 			}
 		// déclaration d'un objet DOM pour la validation
 			$dom = new DOMDocument;
-			$path = "../xml/ESSAI.xml";
+			$path = "../xml/export_film.xml";
 			$dom->Load($path);
 
+?>
+<br/><br/>
+		<div class="container">
+<?php
+		// On test si le document est valide
 			if ($dom->validate()) {
-			    echo "Ce document est valide !\n";
+		// Si oui, succès
+?>
+			<div class="alert alert-success">
+				<h3>Ce document est valide !</h3>
+			</div>
+			<div class="jumbotron">
+				<p>Le document xml se trouve dans projet_php/xml sous le nom "export_film.xml".</p>
+			</div>
+<?php
 			}
 			else {
-				echo "Ce document est invalide !\n";
+		// Si non, erreur
+?>
+				<div class="alert alert-danger">
+				<h3>Ce document est invalide !</h3>
+				</div>
+<?php
 			}
+?>
+		</div>
 
-			echo "string";
-		?>
 		<script language="javascript" type="text/javascript" src="../jquery/jquery-min.js"></script>
 		<script language="javascript" type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
 	</body>
