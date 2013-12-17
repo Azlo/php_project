@@ -27,99 +27,120 @@
 // ************FORMULAIRE************
 // **********************************
 	?>
-		<form method="POST" action="">
-
-			<?php // Input rechercher ?>
-			<input class="span" name="recherche" type="text">
+		<form method="POST" action="" class="well form-search">
+			<legend>Rechercher un film</legend>
 
 			<?php // Listes déroulantes ?>
 
-			<?php // GENRE ?>
-			<select id="e1" name="genres" class="selectpicker span2">
-				<option></option>
-				<?php
-					$sql = "SELECT * FROM genres";
-					$stmt = $connexion->prepare($sql);
-					$stmt -> execute();
+			<div class="row">
+				<?php // GENRE ?>
+				<div class="offset1 span3">
+					<select id="e1" name="genres" class="selectpicker span2">
+						<option></option>
+						<?php
+							$sql = "SELECT * FROM genres";
+							$stmt = $connexion->prepare($sql);
+							$stmt -> execute();
 
-					while($res=$stmt->fetch(PDO::FETCH_OBJ))
-						echo "\t\t\t\t" . '<option value="' . $res->code_genre . '">' . utf8_encode($res->nom_genre) . '</option>'."\n";
-				?>
-			</select>
-			
-			<?php // PAYS ?>
-			<select id="e2" name="pays" class="selectpicker span2">
-				<option></option>
-				<?php
-					$sql = "SELECT distinct pays FROM films";
-					$stmt = $connexion->prepare($sql);
-					$stmt -> execute();
+							while($res=$stmt->fetch(PDO::FETCH_OBJ))
+								echo "\t\t\t\t" . '<option value="' . $res->code_genre . '">' . utf8_encode($res->nom_genre) . '</option>'."\n";
+						?>
+					</select>
+				</div>
+				
+				<?php // PAYS ?>
+				<div class="span3">
+					<select id="e2" name="pays" class="selectpicker span2">
+						<option></option>
+						<?php
+							$sql = "SELECT distinct pays FROM films";
+							$stmt = $connexion->prepare($sql);
+							$stmt -> execute();
 
-					while($res=$stmt->fetch(PDO::FETCH_OBJ))
-						echo "\t\t\t\t".'<option>' . utf8_encode($res->pays) . '</option>'."\n";
-				?>
-			</select>
+							while($res=$stmt->fetch(PDO::FETCH_OBJ))
+								echo "\t\t\t\t".'<option>' . utf8_encode($res->pays) . '</option>'."\n";
+						?>
+					</select>
+				</div>
 
-			<?php // ACTEUR ?>
-			<select id="e3" name="acteurs" class="selectpicker span2">
-				<option></option>
-				<?php
-					$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, acteurs a WHERE i.code_indiv = a.ref_code_acteur ORDER BY prenom";
-							
-					$stmt = $connexion->prepare($sql);
-					$stmt -> execute();
+				<?php // ACTEUR ?>
+				<div class="span3">
+					<select id="e3" name="acteurs" class="selectpicker span2">
+						<option></option>
+						<?php
+							$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, acteurs a WHERE i.code_indiv = a.ref_code_acteur ORDER BY prenom";
+									
+							$stmt = $connexion->prepare($sql);
+							$stmt -> execute();
 
-					while($res=$stmt->fetch(PDO::FETCH_OBJ))
-						echo "\t\t\t\t".'<option value="' . $res->code_indiv . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
-				?>
-			</select>
+							while($res=$stmt->fetch(PDO::FETCH_OBJ))
+								echo "\t\t\t\t".'<option value="' . $res->code_indiv . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
+						?>
+					</select>
+				</div>
 
-			<?php // REALISATEUR ?>
-			<select id="e4" name="realisateur" class="selectpicker span2">
-				<option></option>
-				<?php
-					$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, films f WHERE i.code_indiv = f.realisateur ORDER BY prenom";
-							
-					$stmt = $connexion->prepare($sql);
-					$stmt -> execute();
+				<?php // Input rechercher ?>
+				<div class="input-append span3">
+					<input type="text" class="search-query">
+					<button class="btn btn-primary" type="submit">Recherche <i class="icon-search icon-white"></i></button>
+				</div>
+			</div>
 
-					while($res=$stmt->fetch(PDO::FETCH_OBJ))
-						echo "\t\t\t\t".'<option value="' . utf8_encode($res->code_indiv) . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
-				?>
-			</select>
+			<br/>
 
-			<?php // DATE ?>
-			<select id="e5" name="date" class="selectpicker span2">
-				<option></option>
-				<?php
-					$sql = "SELECT distinct date FROM films	ORDER BY date";
-							
-					$stmt = $connexion->prepare($sql);
-					$stmt -> execute();
+			<div class="row">
+				<?php // REALISATEUR ?>
+				<div class="offset1 span3">
+					<select id="e4" name="realisateur" class="selectpicker span2">
+						<option></option>
+						<?php
+							$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, films f WHERE i.code_indiv = f.realisateur ORDER BY prenom";
+									
+							$stmt = $connexion->prepare($sql);
+							$stmt -> execute();
 
-					while($res=$stmt->fetch(PDO::FETCH_OBJ))
-						echo "\t\t\t\t".'<option>' . utf8_encode($res->date) . '</option>'."\n";
-				?>
-			</select>
+							while($res=$stmt->fetch(PDO::FETCH_OBJ))
+								echo "\t\t\t\t".'<option value="' . utf8_encode($res->code_indiv) . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
+						?>
+					</select>
+				</div>
 
-			<?php // COULEUR ?>
-			<select id="e6" name="couleur" class="selectpicker span2">
-				<option></option>
-				<?php
-					$sql = "SELECT distinct couleur FROM films";
-							
-					$stmt = $connexion->prepare($sql);
-					$stmt -> execute();
+				<?php // DATE ?>
+				<div class="span3">
+					<select id="e5" name="date" class="selectpicker span2">
+						<option></option>
+						<?php
+							$sql = "SELECT distinct date FROM films	ORDER BY date";
+									
+							$stmt = $connexion->prepare($sql);
+							$stmt -> execute();
 
-					while($res=$stmt->fetch(PDO::FETCH_OBJ))
-						echo "\t\t\t\t".'<option>' . utf8_encode($res->couleur) . '</option>'."\n";
-				?>
-			</select>
+							while($res=$stmt->fetch(PDO::FETCH_OBJ))
+								echo "\t\t\t\t".'<option>' . utf8_encode($res->date) . '</option>'."\n";
+						?>
+					</select>
+				</div>
 
-			<?php // BOUTON SUBMIT ?>
-			<input class="btn" type="submit" value="Rechercher"><br/>
+				<?php // COULEUR ?>
+				<div class="span3">
+					<select id="e6" name="couleur" class="selectpicker span2">
+						<option></option>
+						<?php
+							$sql = "SELECT distinct couleur FROM films";
+									
+							$stmt = $connexion->prepare($sql);
+							$stmt -> execute();
 
-				<?php
+							while($res=$stmt->fetch(PDO::FETCH_OBJ))
+								echo "\t\t\t\t".'<option>' . utf8_encode($res->couleur) . '</option>'."\n";
+						?>
+					</select>
+				</div>
+			</div>
+
+
+
+			<?php
 // **********************************
 // *******CONSTRUCTION REQUETE*******
 // **********************************
@@ -148,60 +169,40 @@
 				?>
 		</form>
 <?php
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
- $allohelper = new AlloHelper;
+/*
+	// Construire l'objet AlloHelper
+	$film = new AlloHelper;
 
-    // Définir les paramètres
-    $motsCles = "Harry Potter";
-    $page = 1;
-    
-    // Il est important d'utiliser le bloc try-catch pour gérer les erreurs.
-    try
-    {
-        // Envoi de la requête avec les paramètres, et enregistrement des résultats dans $donnees.
-        $donnees = $allohelper->search( $motsCles, $page );
-        
-        // Affichage des informations sur la requête
-        echo "<pre>", print_r($allohelper->getRequestInfos(), 1),  "</pre>";
-        
-        // Pas de résultat ?
-        if ( count( $donnees['movie'] ) < 1 )
-        {
-            // Afficher un message d'erreur.
-            echo '<p>Pas de résultat pour "' . $motsCles . '"</p>';
-        }
-        
-        else
-        {
-            // Pour chaque résultat de film.
-            foreach ( $donnees['movie'] as $film )
-            {
-                // Afficher le titre.
-                echo "<h2>" . $film['title'] . "</h2>";
-            }
-        }
-    }
-    
-    // En cas d'erreur.
-    catch ( ErrorException $e )
-    {
-        // Affichage des informations sur la requête
-        echo "<pre>", print_r($allohelper->getRequestInfos(), 1), "</pre>";
-        
-        // Afficher un message d'erreur.
-        echo "Erreur " . $e->getCode() . ": " . $e->getMessage();
-    }
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
+	// On peut régler des paramètres
+	// Ici, supprimer les tags HTML dans le synopsis.
+	$film->set('striptags', 'synopsis');
+
+	// Pour plus de lisibilité, on met les valeurs dans des variables.
+	$q = "intouchables";
+	$page = 1;
+	$count = 1;
+	$filter = array('movie');
+
+	try
+	{
+		// Envoi de la requête et traitement des données reçues.
+		// $url est passée par référence et contiendra l'URL ayant appelé les données.
+		$donnees = $film->search( $q, $page, $count, true, $filter, $url );
+
+		// Les données sous forme d'un array
+		echo print_r($donnees->getArray(), 1);
+		echo '<img src='.$donnees['media'][0]['rendition'][0]['href'].'>';
+	}
+	catch ( ErrorException $e)
+	{
+		echo    "<a href=\"$url\">$url</a><br />",
+				"Erreur {$e->getCode()}: {$e->getMessage()}<br />",
+				"Trace:<br />{$e->getTraceAsString()}",
+				print_r($film->getPresets(), 1);
+	}
+*/
+
+
 
 
 // **********************************

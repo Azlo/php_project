@@ -74,18 +74,8 @@
 			$where .= " AND couleur='" . $couleur . "'";
 		}
 
-		echo "<br/>";echo "GENRES : ";
-		var_dump($_POST["genres"]);
-		echo "<br/>";
-		echo "LE FROOOOOOM : ";
-		var_dump($from);echo "<br/>";
-		echo "LE WHEEEEERE : ";
-		var_dump($where);echo "<br/>";
-
 	$query = $select . $from . $where;
 
-	echo "LE TOTAAAAAAL : ";
-	var_dump($query);
 	return $query;
 	}
 ?>
