@@ -67,7 +67,7 @@
 										$stmt -> execute();
 
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t" . '<option value="' . $res->code_genre . '">' . utf8_encode($res->nom_genre) . '</option>'."\n";
+											echo "\t\t\t\t" . '<option value="' . $res->code_genre . '">' . utf8_encode(rtrim($res->nom_genre)) . '</option>'."\n";
 									?>
 								</select>
 							</div>
@@ -85,9 +85,8 @@
 										$stmt = $connexion->prepare($sql);
 										$stmt -> execute();
 
-										$a=0;
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t".'<option value="'.$a++.'">' . utf8_encode($res->pays) . '</option>'."\n";
+											echo "\t\t\t\t".'<option value="'.utf8_encode(rtrim($res->pays)).'">' . utf8_encode(rtrim($res->pays)) . '</option>'."\n";
 									?>
 								</select>
 							</div>
@@ -106,7 +105,7 @@
 										$stmt -> execute();
 
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t".'<option value="' . $res->code_indiv . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
+											echo "\t\t\t\t".'<option value="' . $res->code_indiv . '">' . utf8_encode(rtrim($res->prenom)) . ' ' . utf8_encode(rtrim($res->nom)) . '</option>'."\n";
 									?>
 								</select>
 							</div>
@@ -125,7 +124,7 @@
 										$stmt -> execute();
 
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t".'<option value="' . utf8_encode($res->code_indiv) . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
+											echo "\t\t\t\t".'<option value="' . utf8_encode($res->code_indiv) . '">' . utf8_encode(rtrim($res->prenom)) . ' ' . utf8_encode(rtrim($res->nom)) . '</option>'."\n";
 									?>
 								</select>
 							</div>
@@ -143,9 +142,8 @@
 										$stmt = $connexion->prepare($sql);
 										$stmt -> execute();
 
-										$a=0;
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t".'<option value="'.$a++.'">' . utf8_encode($res->date) . '</option>'."\n";
+											echo "\t\t\t\t".'<option value="'.utf8_encode($res->date).'">' . utf8_encode($res->date) . '</option>'."\n";
 									?>
 								</select>
 							</div>
@@ -165,7 +163,7 @@
 
 										$a=0;
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t".'<option value="'.$a++.'">' . utf8_encode($res->couleur) . '</option>'."\n";
+											echo "\t\t\t\t".'<option value="' . utf8_encode(rtrim($res->couleur)) . '">' . utf8_encode(rtrim($res->couleur)) . '</option>'."\n";
 									?>
 								</select>
 							</div>
@@ -175,14 +173,16 @@
 					</div>
 
 					<?php // Input rechercher ?>
-					<div class="col-lg-4">
-						<div class="input-group">
-						<input type="text" class="form-control" name="recherche">
-							<span class="input-group-btn">
-								<button class="btn btn-primary btn-large" type="submit"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
-							</span>
-						</div><!-- /input-group -->
-					</div><!-- /.col-lg-6 -->
+					<div class="row">
+						<div class="col-lg-4 col-md-4 col-sm-6">
+							<div class="input-group">
+							<input type="text" class="form-control" name="recherche">
+								<span class="input-group-btn">
+									<button class="btn btn-primary btn-large" type="submit"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
+								</span>
+							</div><!-- /input-group -->
+						</div><!-- /.col-lg-6 -->
+					</div>
 
 			<?php
 // **********************************
@@ -266,15 +266,15 @@ if (!empty($res)) {
 <?php
 					do{
 						echo "\t<tr>\n";
-						echo "\t\t" . '<td><a href="http://www.allocine.fr/recherche/?q=' . utf8_encode($res->titre_francais).
-							'" target="blank">' . utf8_encode($res->titre_francais) . '</a></td>'."\n";
-						echo "\t\t<td>" . utf8_encode($res->titre_original) . 	"</td>\n";
-						echo "\t\t<td>" . utf8_encode($res->pays) . 			"</td>\n";
-						echo "\t\t<td>" . utf8_encode($res->date) . 			"</td>\n";
-						echo "\t\t<td>" . utf8_encode($res->duree) . 			"</td>\n";
-						echo "\t\t<td>" . utf8_encode($res->couleur) . 			"</td>\n";
-						echo "\t\t<td>" . utf8_encode($res->prenomRealisateur) . utf8_encode($res->nomRealisateur) ."</td>\n";
-						echo "\t\t<td>" . utf8_encode($res->image) . 			"</td>\n";
+						echo "\t\t" . '<td><a href="http://www.allocine.fr/recherche/?q=' . utf8_encode(rtrim($res->titre_francais)).
+							'" target="blank">' . utf8_encode(rtrim($res->titre_francais)) . '</a></td>'."\n";
+						echo "\t\t<td>" . utf8_encode(rtrim($res->titre_original)) . 	"</td>\n";
+						echo "\t\t<td>" . utf8_encode(rtrim($res->pays)) . 				"</td>\n";
+						echo "\t\t<td>" . utf8_encode(rtrim($res->date)) . 				"</td>\n";
+						echo "\t\t<td>" . utf8_encode(rtrim($res->duree)) . 			"</td>\n";
+						echo "\t\t<td>" . utf8_encode(rtrim($res->couleur)) . 			"</td>\n";
+						echo "\t\t<td>" . utf8_encode(rtrim($res->prenomRealisateur)) . utf8_encode(rtrim($res->nomRealisateur)) ."</td>\n";
+						echo "\t\t<td>" . utf8_encode(rtrim($res->image)) . 			"</td>\n";
 						echo "\t</tr>\n";
 					}while($res = $stmt -> fetch(PDO::FETCH_OBJ));
 					echo "</table>\n";
@@ -327,12 +327,30 @@ else {
 // ******MISE EN MEMOIRE REQUETE*****
 // **********************************
 				if (!empty($_POST)) {
-					if (!empty($_POST["genres"]))		{echo '$("#e1").val('.$_POST["genres"].		');';}
-					if (!empty($_POST["pays"]))			{echo '$("#e2").val('.$_POST["pays"].		');';}
-					if (!empty($_POST["acteurs"]))		{echo '$("#e3").val('.$_POST["acteurs"].	');';}
-					if (!empty($_POST["realisateur"]))	{echo '$("#e4").val('.$_POST["realisateur"].');';}
-					if (!empty($_POST["date"]))			{echo '$("#e5").val('.$_POST["date"].		');';}
-					if (!empty($_POST["couleur"]))		{echo '$("#e6").val('.$_POST["couleur"].	');';}
+					if (!empty($_POST["genres"])){
+						$genres = $_POST["genres"];
+						echo '$("#e1").val('.$genres.');';
+					}
+					if (!empty($_POST["pays"])){
+						$pays = $_POST["pays"];
+						echo '$("#e2").val("'.$_POST["pays"].'");';
+					}
+					if (!empty($_POST["acteurs"])){
+						$acteurs = $_POST["acteurs"];
+						echo '$("#e3").val('.$_POST["acteurs"].');';
+					}
+					if (!empty($_POST["realisateur"])){
+						$realisateur = $_POST["realisateur"];
+						echo '$("#e4").val('.$_POST["realisateur"].');';
+					}
+					if (!empty($_POST["date"]))	{
+						$date = $_POST["date"];
+						echo '$("#e5").val('.$_POST["date"].');';
+					}
+					if (!empty($_POST["couleur"])){
+						$couleur = $_POST["couleur"];
+						echo '$("#e6").val("'.$_POST["couleur"].'");';
+					}
 				}
 			?>
 		</script>
