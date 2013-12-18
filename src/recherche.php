@@ -59,7 +59,7 @@
 						<div class="control-group col-6 col-sm-6 col-lg-4">
 							<label for="e1" class="control-label">Genres</label>
 							<div class="controls">
-								<select id="e1" name="genres" class="selectpicker">
+								<p><select id="e1" name="genres" class="selectpicker">
 									<option></option>
 									<?php
 										$sql = "SELECT * FROM genres";
@@ -69,7 +69,7 @@
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
 											echo "\t\t\t\t" . '<option value="' . $res->code_genre . '">' . utf8_encode(rtrim($res->nom_genre)) . '</option>'."\n";
 									?>
-								</select>
+								</select></p>
 							</div>
 						</div>
 
@@ -78,7 +78,7 @@
 						<div class="control-group col-6 col-sm-6 col-lg-4">
 							<label for="e2" class="control-label">Pays</label>
 							<div class="controls">
-								<select id="e2" name="pays" class="selectpicker">
+								<p><select id="e2" name="pays" class="selectpicker">
 									<option></option>
 									<?php
 										$sql = "SELECT distinct pays FROM films";
@@ -88,7 +88,7 @@
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
 											echo "\t\t\t\t".'<option value="'.utf8_encode(rtrim($res->pays)).'">' . utf8_encode(rtrim($res->pays)) . '</option>'."\n";
 									?>
-								</select>
+								</select></p>
 							</div>
 						</div>
 
@@ -97,7 +97,7 @@
 						<div class="control-group col-6 col-sm-6 col-lg-4">
 							<label for="e3" class="control-label">Acteur</label>
 							<div class="controls">
-								<select id="e3" name="acteurs" class="selectpicker">
+								<p><select id="e3" name="acteurs" class="selectpicker">
 									<option></option>
 									<?php
 										$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, acteurs a WHERE i.code_indiv = a.ref_code_acteur ORDER BY prenom";
@@ -107,7 +107,7 @@
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
 											echo "\t\t\t\t".'<option value="' . $res->code_indiv . '">' . utf8_encode(rtrim($res->prenom)) . ' ' . utf8_encode(rtrim($res->nom)) . '</option>'."\n";
 									?>
-								</select>
+								</select></p>
 							</div>
 						</div>
 
@@ -116,7 +116,7 @@
 						<div class="control-group col-6 col-sm-6 col-lg-4">
 							<label for="e4" class="control-label">Réalisateur</label>
 							<div class="controls">
-								<select id="e4" name="realisateur" class="selectpicker">
+								<p><select id="e4" name="realisateur" class="selectpicker">
 									<option></option>
 									<?php
 										$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, films f WHERE i.code_indiv = f.realisateur ORDER BY prenom";
@@ -126,7 +126,7 @@
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
 											echo "\t\t\t\t".'<option value="' . utf8_encode($res->code_indiv) . '">' . utf8_encode(rtrim($res->prenom)) . ' ' . utf8_encode(rtrim($res->nom)) . '</option>'."\n";
 									?>
-								</select>
+								</select></p>
 							</div>
 						</div>
 
@@ -135,7 +135,7 @@
 						<div class="control-group col-6 col-sm-6 col-lg-4">
 							<label for="e5" class="control-label">Date</label>
 							<div class="controls">
-								<select id="e5" name="date" class="selectpicker">
+								<p><select id="e5" name="date" class="selectpicker">
 									<option></option>
 									<?php
 										$sql = "SELECT distinct date FROM films	ORDER BY date";
@@ -145,7 +145,7 @@
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
 											echo "\t\t\t\t".'<option value="'.utf8_encode($res->date).'">' . utf8_encode($res->date) . '</option>'."\n";
 									?>
-								</select>
+								</select></p>
 							</div>
 						</div>
 
@@ -154,7 +154,7 @@
 						<div class="control-group col-6 col-sm-6 col-lg-4">
 							<label for="e6" class="control-label">Couleur</label>
 							<div class="controls">
-								<select id="e6" name="couleur" class="selectpicker">
+								<p><select id="e6" name="couleur" class="selectpicker">
 									<option></option>
 									<?php
 										$sql = "SELECT distinct couleur FROM films";
@@ -165,11 +165,9 @@
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
 											echo "\t\t\t\t".'<option value="' . utf8_encode(rtrim($res->couleur)) . '">' . utf8_encode(rtrim($res->couleur)) . '</option>'."\n";
 									?>
-								</select>
+								</select></p>
 							</div>
 						</div>
-						<br/><br/><br/>
-						<br/><br/><br/>
 					</div>
 
 					<?php // Input rechercher ?>
@@ -253,16 +251,19 @@ if (!empty($res)) {
 
 ?>
 					<table class="table-hover table-bordered table-stripped table tablesorter">
-						<tr>
-							<th>Titre Fançais</th>
-							<th>Titre Original</th>
-							<th>Pays</th>
-							<th>Date</th>
-							<th>Durée (min)</th>
-							<th>Couleur</th>
-							<th>Réalisateur</th>
-							<th>Image</th>
-						</tr>
+						<thead>
+							<tr>
+								<th>Titre Fançais</th>
+								<th>Titre Original</th>
+								<th>Pays</th>
+								<th>Date</th>
+								<th>Durée (min)</th>
+								<th>Couleur</th>
+								<th>Réalisateur</th>
+								<th>Image</th>
+							</tr>
+						</thead>
+						<tbody>
 <?php
 					do{
 						echo "\t<tr>\n";
@@ -282,6 +283,7 @@ if (!empty($res)) {
 					// Fermeture du curseur
 					$stmt->closeCursor();
 ?>
+						</tbody>
 
 		<form method="POST" action="xmlGenerator.php">
 			<input type="hidden" name="postQuery" value="<?php echo $sql; ?>"><br/>
