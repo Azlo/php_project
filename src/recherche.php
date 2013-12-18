@@ -3,13 +3,34 @@
 	<head>
 		<title>Liste de films</title>
 		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-responsive.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../dist/css/bootstrap-responsive.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../select_2/select2.css" />
 	</head>
 
 	<body>
-	<?php
+
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Project name</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+<?php
 		// Connexion à la base
 		require_once("connect.php");
 		require_once("../api-allocine-helper-master/api-allocine-helper.php");
@@ -21,147 +42,152 @@
 				printf("Échec de la connexion : %s\n", $e->getMessage());
 				exit();
 			}
-	?>
-	<?php
+?>
+<?php
 // **********************************
 // ************FORMULAIRE************
 // **********************************
-	?>
-		<form method="POST" action="" class="well form-search">
-			<legend>Rechercher un film</legend>
+?>
+		<div class="container">
+			<form method="POST" action="" class="from-search well form-inline">
+			<fieldset>
+				<legend>Rechercher un film</legend>
 
-			<?php // Listes déroulantes ?>
+					<?php // Listes déroulantes ?>
+					<div class="row">
+						<?php // GENRE ?>
+						<div class="control-group col-6 col-sm-6 col-lg-4">
+							<label for="e1" class="control-label">Genres</label>
+							<div class="controls">
+								<select id="e1" name="genres" class="selectpicker">
+									<option></option>
+									<?php
+										$sql = "SELECT * FROM genres";
+										$stmt = $connexion->prepare($sql);
+										$stmt -> execute();
 
-			<div class="container">
-				<div class="container">
-					<?php // GENRE ?>
-					<label for="e1" class="">Genres</label>
-					<div class="">	
-						<select id="e1" name="genres" class="selectpicker">
-							<option></option>
-							<?php
-								$sql = "SELECT * FROM genres";
-								$stmt = $connexion->prepare($sql);
-								$stmt -> execute();
+										while($res=$stmt->fetch(PDO::FETCH_OBJ))
+											echo "\t\t\t\t" . '<option value="' . $res->code_genre . '">' . utf8_encode($res->nom_genre) . '</option>'."\n";
+									?>
+								</select>
+							</div>
+						</div>
 
-								while($res=$stmt->fetch(PDO::FETCH_OBJ))
-									echo "\t\t\t\t" . '<option value="' . $res->code_genre . '">' . utf8_encode($res->nom_genre) . '</option>'."\n";
-							?>
-						</select>
+
+						<?php // PAYS ?>
+						<div class="control-group col-6 col-sm-6 col-lg-4">
+							<label for="e2" class="control-label">Pays</label>
+							<div class="controls">
+								<select id="e2" name="pays" class="selectpicker">
+									<option></option>
+									<?php
+										$sql = "SELECT distinct pays FROM films";
+										$stmt = $connexion->prepare($sql);
+										$stmt -> execute();
+
+										$a=0;
+										while($res=$stmt->fetch(PDO::FETCH_OBJ))
+											echo "\t\t\t\t".'<option value="'.$a++.'">' . utf8_encode($res->pays) . '</option>'."\n";
+									?>
+								</select>
+							</div>
+						</div>
+
+
+						<?php // ACTEUR ?>
+						<div class="control-group col-6 col-sm-6 col-lg-4">
+							<label for="e3" class="control-label">Acteur</label>
+							<div class="controls">
+								<select id="e3" name="acteurs" class="selectpicker">
+									<option></option>
+									<?php
+										$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, acteurs a WHERE i.code_indiv = a.ref_code_acteur ORDER BY prenom";
+										$stmt = $connexion->prepare($sql);
+										$stmt -> execute();
+
+										while($res=$stmt->fetch(PDO::FETCH_OBJ))
+											echo "\t\t\t\t".'<option value="' . $res->code_indiv . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
+									?>
+								</select>
+							</div>
+						</div>
+
+
+						<?php // REALISATEUR ?>
+						<div class="control-group col-6 col-sm-6 col-lg-4">
+							<label for="e4" class="control-label">Réalisateur</label>
+							<div class="controls">
+								<select id="e4" name="realisateur" class="selectpicker">
+									<option></option>
+									<?php
+										$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, films f WHERE i.code_indiv = f.realisateur ORDER BY prenom";
+										$stmt = $connexion->prepare($sql);
+										$stmt -> execute();
+
+										while($res=$stmt->fetch(PDO::FETCH_OBJ))
+											echo "\t\t\t\t".'<option value="' . utf8_encode($res->code_indiv) . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
+									?>
+								</select>
+							</div>
+						</div>
+
+
+						<?php // DATE ?>
+						<div class="control-group col-6 col-sm-6 col-lg-4">
+							<label for="e5" class="control-label">Date</label>
+							<div class="controls">
+								<select id="e5" name="date" class="selectpicker">
+									<option></option>
+									<?php
+										$sql = "SELECT distinct date FROM films	ORDER BY date";
+										$stmt = $connexion->prepare($sql);
+										$stmt -> execute();
+
+										$a=0;
+										while($res=$stmt->fetch(PDO::FETCH_OBJ))
+											echo "\t\t\t\t".'<option value="'.$a++.'">' . utf8_encode($res->date) . '</option>'."\n";
+									?>
+								</select>
+							</div>
+						</div>
+
+
+						<?php // COULEUR ?>
+						<div class="control-group col-6 col-sm-6 col-lg-4">
+							<label for="e6" class="control-label">Couleur</label>
+							<div class="controls">
+								<select id="e6" name="couleur" class="selectpicker">
+									<option></option>
+									<?php
+										$sql = "SELECT distinct couleur FROM films";
+										$stmt = $connexion->prepare($sql);
+										$stmt -> execute();
+
+										$a=0;
+										while($res=$stmt->fetch(PDO::FETCH_OBJ))
+											echo "\t\t\t\t".'<option value="'.$a++.'">' . utf8_encode($res->couleur) . '</option>'."\n";
+									?>
+								</select>
+							</div>
+						</div>
+						<br/><br/><br/>
+						<br/><br/><br/>
 					</div>
-				</div>
 
-				<div class="row">
-					<?php // PAYS ?>
-					<label for="e2" class="span1">Pays</label>
-					<div class="">
-						<select id="e2" name="pays" class="selectpicker">
-							<option></option>
-							<?php
-								$sql = "SELECT distinct pays FROM films";
-								$stmt = $connexion->prepare($sql);
-								$stmt -> execute();
-
-								$a=0;
-								while($res=$stmt->fetch(PDO::FETCH_OBJ))
-									echo "\t\t\t\t".'<option value="'.$a++.'">' . utf8_encode($res->pays) . '</option>'."\n";
-							?>
-						</select>
-					</div>
-				</div>
-
-				<div class="row">
-					<?php // ACTEUR ?>
-					<label for="e3" class="">Acteur</label>
-					<div class="">
-						<select id="e3" name="acteurs" class="selectpicker">
-							<option></option>
-							<?php
-								$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, acteurs a WHERE i.code_indiv = a.ref_code_acteur ORDER BY prenom";
-								$stmt = $connexion->prepare($sql);
-								$stmt -> execute();
-
-								while($res=$stmt->fetch(PDO::FETCH_OBJ))
-									echo "\t\t\t\t".'<option value="' . $res->code_indiv . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
-							?>
-						</select>
-					</div>
-				</div>
-			</div>
-
-			<br/>
-
-			<div class="container">
-				<div class="row">
-					<?php // REALISATEUR ?>
-					<label for="e4" class="">Réalisateur</label>
-					<div class="">
-						<select id="e4" name="realisateur" class="selectpicker">
-							<option></option>
-							<?php
-								$sql = "SELECT distinct code_indiv, nom, prenom FROM individus i, films f WHERE i.code_indiv = f.realisateur ORDER BY prenom";
-								$stmt = $connexion->prepare($sql);
-								$stmt -> execute();
-
-								while($res=$stmt->fetch(PDO::FETCH_OBJ))
-									echo "\t\t\t\t".'<option value="' . utf8_encode($res->code_indiv) . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
-							?>
-						</select>
-					</div>
-				</div>
-
-				<div class="row">
-					<?php // DATE ?>
-					<label for="e5" class="">Date</label>
-					<div class="">
-						<select id="e5" name="date" class="selectpicker">
-							<option></option>
-							<?php
-								$sql = "SELECT distinct date FROM films	ORDER BY date";
-								$stmt = $connexion->prepare($sql);
-								$stmt -> execute();
-
-								$a=0;
-								while($res=$stmt->fetch(PDO::FETCH_OBJ))
-									echo "\t\t\t\t".'<option value="'.$a++.'">' . utf8_encode($res->date) . '</option>'."\n";
-							?>
-						</select>
-					</div>
-				</div>
-
-				<div class="row">
-					<?php // COULEUR ?>
-					<label for="e6" class="">Couleur</label>
-					<div class="">
-						<select id="e6" name="couleur" class="selectpicker">
-							<option></option>
-							<?php
-								$sql = "SELECT distinct couleur FROM films";
-								$stmt = $connexion->prepare($sql);
-								$stmt -> execute();
-
-								$a=0;
-								while($res=$stmt->fetch(PDO::FETCH_OBJ))
-									echo "\t\t\t\t".'<option value="'.$a++.'">' . utf8_encode($res->couleur) . '</option>'."\n";
-							?>
-						</select>
-					</div>
-				</div>
-			</div>
-			<br/>
-			<div class="row">
-				<?php // Input rechercher ?>
-				<div class="input-append offset5 span3">
-					<input type="text" class="search-query">
-					<button class="btn btn-primary" type="submit">Recherche <i class="icon-search icon-white"></i></button>
-				</div>
-			</div>
+					<?php // Input rechercher ?>
+					<div class="col-lg-4">
+						<div class="input-group">
+						<input type="text" class="form-control" name="recherche">
+							<span class="input-group-btn">
+								<button class="btn btn-primary btn-large" type="submit"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
+							</span>
+						</div><!-- /input-group -->
+					</div><!-- /.col-lg-6 -->
 
 			<?php
 // **********************************
 // *******CONSTRUCTION REQUETE*******
 // **********************************
-					
 					if (!empty($_POST)) {
 						include_once("ressources.php");
 						$sql = queryBuild();
@@ -175,7 +201,11 @@
 					$stmt=$connexion->prepare($sql);
 					$stmt->execute();
 				?>
-		</form>
+			</fieldset>
+			</form>
+		</div>
+
+
 <?php
 /*
 	// Construire l'objet AlloHelper
@@ -214,19 +244,27 @@
 // **********************************
 // *********TABLEAU DE FILMS*********
 // **********************************
+// On récupère un résultat
+$res = $stmt -> fetch(PDO::FETCH_OBJ);
 
-					echo "<table class=\"table-hover table-bordered table-stripped table tablesorter\">\n";
-					echo "\t<tr>\n";
-					echo "\t\t<th>Titre Fançais</th>\n";
-					echo "\t\t<th>Titre Original</th>\n";
-					echo "\t\t<th>Pays</th>\n";
-					echo "\t\t<th>Date</th>\n";
-					echo "\t\t<th>Durée (min)</th>\n";
-					echo "\t\t<th>Couleur</th>\n";
-					echo "\t\t<th>Réalisateur</th>\n";
-					echo "\t\t<th>Image</th>\n";
-					echo "\t</tr>\n";
-					while($res = $stmt -> fetch(PDO::FETCH_OBJ)){
+// S'il n'est pas vide ona ffiche le tableau avec le/les résultat(s)
+if (!empty($res)) {
+
+
+?>
+					<table class="table-hover table-bordered table-stripped table tablesorter">
+						<tr>
+							<th>Titre Fançais</th>
+							<th>Titre Original</th>
+							<th>Pays</th>
+							<th>Date</th>
+							<th>Durée (min)</th>
+							<th>Couleur</th>
+							<th>Réalisateur</th>
+							<th>Image</th>
+						</tr>
+<?php
+					do{
 						echo "\t<tr>\n";
 						echo "\t\t" . '<td><a href="http://www.allocine.fr/recherche/?q=' . utf8_encode($res->titre_francais).
 							'" target="blank">' . utf8_encode($res->titre_francais) . '</a></td>'."\n";
@@ -238,7 +276,7 @@
 						echo "\t\t<td>" . utf8_encode($res->prenomRealisateur) . utf8_encode($res->nomRealisateur) ."</td>\n";
 						echo "\t\t<td>" . utf8_encode($res->image) . 			"</td>\n";
 						echo "\t</tr>\n";
-					}
+					}while($res = $stmt -> fetch(PDO::FETCH_OBJ));
 					echo "</table>\n";
 
 					// Fermeture du curseur
@@ -249,9 +287,21 @@
 			<input type="hidden" name="postQuery" value="<?php echo $sql; ?>"><br/>
 			<input class="btn" type="submit" value="Export XML">
 		</form>
-
+<?php
+}
+// Sinon on affiche "aucun résultats"
+else {
+?>
+	<div class="container">
+		<div class="well">
+			<h3 style="text-align:center">Aucun résultats !</h3>
+		</div>
+	</div>
+<?php
+}
+?>
 		<script language="javascript" type="text/javascript" src="../jquery/jquery-min.js"></script>
-		<script language="javascript" type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+		<script language="javascript" type="text/javascript" src="../dist/js/bootstrap.min.js"></script>
 		<script language="javascript" type="text/javascript" src="../select_2/select2.js"></script>
 		<script language="javascript" type="text/javascript" src="../jquery/__jquery.tablesorter/jquery.tablesorter.js"></script>
 		<script>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf8" standalone="yes" ?>
+<!DOCTYPE liste_film [
+<!ELEMENT liste_film (film)+ >
+<!ELEMENT film (titre_original,titre_francais,realisateur,date)+ >
+<!ELEMENT titre_original (#PCDATA) >
+<!ELEMENT titre_francais (#PCDATA) >
+<!ELEMENT realisateur (#PCDATA) >
+<!ELEMENT date (#PCDATA) >
+]>
+<liste_film>
+	<film>
+		<titre_original>Shichinin no samurai</titre_original>
+		<titre_francais>Sept samouraïs (Les)</titre_francais>
+		<realisateur>242</realisateur>
+		<date>1954</date>
+	</film>
+	<film>
+		<titre_original>Rashômon</titre_original>
+		<titre_francais>Rashômon</titre_francais>
+		<realisateur>242</realisateur>
+		<date>1950</date>
+	</film>
+	<film>
+		<titre_original>Saikaku ichidai onna</titre_original>
+		<titre_francais>Vie d'O'Haru, femme galante</titre_francais>
+		<realisateur>648</realisateur>
+		<date>1952</date>
+	</film>
+	<film>
+		<titre_original>Yojimbo</titre_original>
+		<titre_francais>Garde du corps (Le)</titre_francais>
+		<realisateur>242</realisateur>
+		<date>1961</date>
+	</film>
+	<film>
+		<titre_original>Tsubaki Sanjûrô</titre_original>
+		<titre_francais>Sanjuro</titre_francais>
+		<realisateur>242</realisateur>
+		<date>1962</date>
+	</film>
+</liste_film>

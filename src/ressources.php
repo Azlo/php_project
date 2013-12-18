@@ -75,6 +75,7 @@
 		}
 
 	$query = $select . $from . $where;
+	echo $query;
 
 	return $query;
 	}

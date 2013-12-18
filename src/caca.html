@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="tablesorter/themes/blue/style.css"	type="text/css" />
+		<script language="javascript" type="text/javascript" src="../jquery/jquery-min.js"></script>
+		<script language="javascript" type="text/javascript" src="../jquery/__jquery.tablesorter/jquery.tablesorter.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("table").tablesorter({
+					sortList: [[0,0]]
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<table cellspacing="1" class="tablesorter">
+			<thead>
+				<tr>
+					<th>Prenom</th>
+					<th>Nom</th>
+					<th>Age</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>Laure</td>
+				<td>Dinateur</td>
+				<td>28</td>
+				<td>9.99 €</td>
+			</tr>
+			<tr>
+				<td>Colin</td>
+				<td>Visible</td>
+				<td>33</td>
+				<td>19.99 €</td>
+			</tr>
+			<tr>
+				<td>Sarah</td>
+				<td>Sure</td>
+				<td>18</td>
+				<td>15.89€</td>
+			</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
