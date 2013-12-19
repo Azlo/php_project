@@ -10,6 +10,11 @@
 
 	<body>
 
+<?php
+// **********************************
+// ***************MENU**************
+// **********************************
+?>
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
@@ -27,14 +32,15 @@
 					<li><a href="#about">About</a></li>
 					<li><a href="#contact">Contact</a></li>
 				</ul>
-			</div><!--/.nav-collapse -->
+			</div>
 		</div>
 	</div>
 <?php
+
+		// On inclue le fichier de connexion
+			require_once("connect.php");
+
 		// Connexion à la base
-		require_once("connect.php");
-		require_once("../api-allocine-helper-master/api-allocine-helper.php");
-		
 			try{
 				$connexion = new PDO(DSN,USER,PASSWD);
 			}
@@ -67,7 +73,7 @@
 										$stmt -> execute();
 
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t" . '<option value="' . $res->code_genre . '">' . utf8_encode(rtrim($res->nom_genre)) . '</option>'."\n";
+											echo "\t\t\t\t" . '<option value="' . $res->code_genre . '">' . utf8_encode($res->nom_genre) . '</option>'."\n";
 									?>
 								</select></p>
 							</div>
@@ -86,7 +92,7 @@
 										$stmt -> execute();
 
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t".'<option value="'.utf8_encode(rtrim($res->pays)).'">' . utf8_encode(rtrim($res->pays)) . '</option>'."\n";
+											echo "\t\t\t\t".'<option value="'.utf8_encode($res->pays).'">' . utf8_encode($res->pays) . '</option>'."\n";
 									?>
 								</select></p>
 							</div>
@@ -105,7 +111,7 @@
 										$stmt -> execute();
 
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t".'<option value="' . $res->code_indiv . '">' . utf8_encode(rtrim($res->prenom)) . ' ' . utf8_encode(rtrim($res->nom)) . '</option>'."\n";
+											echo "\t\t\t\t".'<option value="' . $res->code_indiv . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
 									?>
 								</select></p>
 							</div>
@@ -124,7 +130,7 @@
 										$stmt -> execute();
 
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t".'<option value="' . utf8_encode($res->code_indiv) . '">' . utf8_encode(rtrim($res->prenom)) . ' ' . utf8_encode(rtrim($res->nom)) . '</option>'."\n";
+											echo "\t\t\t\t".'<option value="' . utf8_encode($res->code_indiv) . '">' . utf8_encode($res->prenom) . ' ' . utf8_encode($res->nom) . '</option>'."\n";
 									?>
 								</select></p>
 							</div>
@@ -163,7 +169,7 @@
 
 										$a=0;
 										while($res=$stmt->fetch(PDO::FETCH_OBJ))
-											echo "\t\t\t\t".'<option value="' . utf8_encode(rtrim($res->couleur)) . '">' . utf8_encode(rtrim($res->couleur)) . '</option>'."\n";
+											echo "\t\t\t\t".'<option value="' . utf8_encode($res->couleur) . '">' . utf8_encode($res->couleur) . '</option>'."\n";
 									?>
 								</select></p>
 							</div>
@@ -178,8 +184,8 @@
 								<span class="input-group-btn">
 									<button class="btn btn-primary btn-large" type="submit"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
 								</span>
-							</div><!-- /input-group -->
-						</div><!-- /.col-lg-6 -->
+							</div>
+						</div>
 					</div>
 
 			<?php
@@ -205,52 +211,19 @@
 
 
 <?php
-/*
-	// Construire l'objet AlloHelper
-	$film = new AlloHelper;
-
-	// On peut régler des paramètres
-	// Ici, supprimer les tags HTML dans le synopsis.
-	$film->set('striptags', 'synopsis');
-
-	// Pour plus de lisibilité, on met les valeurs dans des variables.
-	$q = "intouchables";
-	$page = 1;
-	$count = 1;
-	$filter = array('movie');
-
-	try
-	{
-		// Envoi de la requête et traitement des données reçues.
-		// $url est passée par référence et contiendra l'URL ayant appelé les données.
-		$donnees = $film->search( $q, $page, $count, true, $filter, $url );
-
-		// Les données sous forme d'un array
-		echo print_r($donnees->getArray(), 1);
-		echo '<img src='.$donnees['media'][0]['rendition'][0]['href'].'>';
-	}
-	catch ( ErrorException $e)
-	{
-		echo "<a href=\"$url\">$url</a><br />",
-				"Erreur {$e->getCode()}: {$e->getMessage()}<br />",
-				"Trace:<br />{$e->getTraceAsString()}",
-				print_r($film->getPresets(), 1);
-	}
-*/
-
-
 // **********************************
 // *********TABLEAU DE FILMS*********
 // **********************************
+
 // On récupère un résultat
 $res = $stmt -> fetch(PDO::FETCH_OBJ);
 
 // S'il n'est pas vide ona ffiche le tableau avec le/les résultat(s)
 if (!empty($res)) {
 
-
+// On place lê "head" du tableau
 ?>
-					<table class="table-hover table-bordered table-stripped table tablesorter">
+					<table class="table-hover table-bordered table-stripped table tablesorter text-center center">
 						<thead>
 							<tr>
 								<th>Titre Fançais</th>
@@ -265,17 +238,24 @@ if (!empty($res)) {
 						</thead>
 						<tbody>
 <?php
-					do{
+					do{ // On utilise le "do while" car il faut consommer un résultat pour savoir s'il existe
 						echo "\t<tr>\n";
-						echo "\t\t" . '<td><a href="http://www.allocine.fr/recherche/?q=' . utf8_encode(rtrim($res->titre_francais)).
-							'" target="blank">' . utf8_encode(rtrim($res->titre_francais)) . '</a></td>'."\n";
-						echo "\t\t<td>" . utf8_encode(rtrim($res->titre_original)) . 	"</td>\n";
-						echo "\t\t<td>" . utf8_encode(rtrim($res->pays)) . 				"</td>\n";
-						echo "\t\t<td>" . utf8_encode(rtrim($res->date)) . 				"</td>\n";
-						echo "\t\t<td>" . utf8_encode(rtrim($res->duree)) . 			"</td>\n";
-						echo "\t\t<td>" . utf8_encode(rtrim($res->couleur)) . 			"</td>\n";
-						echo "\t\t<td>" . utf8_encode(rtrim($res->prenomRealisateur)) . utf8_encode(rtrim($res->nomRealisateur)) ."</td>\n";
-						echo "\t\t<td>" . utf8_encode(rtrim($res->image)) . 			"</td>\n";
+						echo "\t\t" . '<td><a href="http://www.allocine.fr/recherche/?q=' . utf8_encode($res->titre_francais).
+							'" target="blank">' . utf8_encode($res->titre_francais) . '</a></td>'."\n";
+						echo "\t\t<td>" . utf8_encode($res->titre_original) . 	"</td>\n";
+						echo "\t\t<td>" . utf8_encode($res->pays) . 			"</td>\n";
+						echo "\t\t<td>" . utf8_encode($res->date) . 			"</td>\n";
+						echo "\t\t<td>" . utf8_encode($res->duree) . 			"</td>\n";
+						echo "\t\t<td>" . utf8_encode($res->couleur) . 			"</td>\n";
+						echo "\t\t<td>" . utf8_encode($res->prenomRealisateur) . 
+										  utf8_encode($res->nomRealisateur) .	"</td>\n";
+						// Si l'image existe, on affiche la bonne image
+						if (file_exists('../images/'.$res->code_film.'.jpg')) {
+							echo "\t\t<td><img src=\"../images/".$res->code_film.".jpg\"></td>\n";
+						}
+						else { // Sinon on affiche une image par défaut
+							echo "\t\t<td><img src=\"../images/empty.jpg\" width=\"120\"></td>\n";
+						}
 						echo "\t</tr>\n";
 					}while($res = $stmt -> fetch(PDO::FETCH_OBJ));
 					echo "</table>\n";
@@ -311,14 +291,16 @@ else {
 // **********************************
 // ****INITIALISATION DES SELECTS****
 // **********************************
+
+// La librairie "Select2" est utilisé, on les initialise avec diverses options en javascript
 ?>
 			$(document).ready(function() { 
-				$("#e1").select2({ placeholder: "genre",		allowClear: true});
-				$("#e2").select2({ placeholder: "pays",			allowClear: true});
-				$("#e3").select2({ placeholder: "acteur",		allowClear: true});
-				$("#e4").select2({ placeholder: "réalisateur",	allowClear: true});
-				$("#e5").select2({ placeholder: "date",			allowClear: true});
-				$("#e6").select2({ placeholder: "couleur",		allowClear: true});
+				$("#e1").select2({ placeholder: "genre",		allowClear: true,	width:'250'});
+				$("#e2").select2({ placeholder: "pays",			allowClear: true,	width:'250'});
+				$("#e3").select2({ placeholder: "acteur",		allowClear: true,	width:'250'});
+				$("#e4").select2({ placeholder: "réalisateur",	allowClear: true,	width:'250'});
+				$("#e5").select2({ placeholder: "date",			allowClear: true,	width:'250'});
+				$("#e6").select2({ placeholder: "couleur",		allowClear: true,	width:'250'});
 				$("table").tablesorter({
 					sortList: [[0,0]]
 				});
@@ -328,6 +310,8 @@ else {
 // **********************************
 // ******MISE EN MEMOIRE REQUETE*****
 // **********************************
+
+// Si la donnée post existe, on la garde en mémoire si l'utilisateur veut affiner sa recherche
 				if (!empty($_POST)) {
 					if (!empty($_POST["genres"])){
 						$genres = $_POST["genres"];
