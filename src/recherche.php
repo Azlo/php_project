@@ -1,12 +1,6 @@
 <!doctype html>
 <html>
-	<head>
-		<title>Liste de films</title>
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="../dist/css/bootstrap-responsive.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../dist/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../select_2/select2.css" />
-	</head>
+<?php include_once('head.php'); ?>
 
 	<body>
 
@@ -14,29 +8,8 @@
 // **********************************
 // ***************MENU**************
 // **********************************
-?>
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Project name</a>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-<?php
-
+		// On inclue le menu de navigation
+			include_once("nav.php");
 		// On inclue le fichier de connexion
 			require_once("connect.php");
 
@@ -224,7 +197,7 @@ if (!empty($res)) {
 // On place lê "head" du tableau
 ?>
 					<table class="table-hover table-bordered table-stripped table tablesorter text-center center">
-						<thead>
+						<thead >
 							<tr>
 								<th>Titre Fançais</th>
 								<th>Titre Original</th>
@@ -282,6 +255,8 @@ else {
 <?php
 }
 ?>
+
+		<?php include_once('footer.php'); ?>
 		<script language="javascript" type="text/javascript" src="../jquery/jquery-min.js"></script>
 		<script language="javascript" type="text/javascript" src="../dist/js/bootstrap.min.js"></script>
 		<script language="javascript" type="text/javascript" src="../select_2/select2.js"></script>
