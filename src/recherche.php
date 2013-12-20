@@ -152,8 +152,9 @@
 					<?php // Input rechercher ?>
 					<div class="row">
 						<div class="col-lg-4 col-md-4 col-sm-6">
+						<label for="recherche" class="control-label">Recherche par titre</label>
 							<div class="input-group">
-							<input type="text" class="form-control" name="recherche">
+							<input id="recherche" type="text" class="form-control" name="recherche">
 								<span class="input-group-btn">
 									<button class="btn btn-primary btn-large" type="submit"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
 								</span>

@@ -1,12 +1,6 @@
 <!doctype html>
 <html>
-	<head>
-		<title>Liste de films</title>
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../select_2/select2.css" />
-	</head>
+<?php include_once('head.php'); ?>
 
 	<body>
 		<?php
@@ -103,9 +97,9 @@
 			else {
 		// Si non, erreur
 ?>
-				<div class="alert alert-danger">
-				<h3>Ce document est invalide !</h3>
-				</div>
+			<div class="alert alert-danger">
+			<h3>Ce document est invalide !</h3>
+			</div>
 <?php
 			}
 ?>

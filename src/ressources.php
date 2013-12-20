@@ -11,7 +11,6 @@
 		$str = "";
 
 		if (!empty($_POST["genres"])) {
-			
 			$genres = $_POST["genres"];
 
 			if ($genres != "") {
@@ -20,19 +19,24 @@
 
 			$from .= ", genres g, classification c";
 			$where .= " AND f.code_film = c.ref_code_film AND c.ref_code_genre = g.code_genre";
+		}
 
+		if (!empty($_POST["recherche"])) {
+			$recherche = $_POST["recherche"];
+
+			if ($recherche != "") {
+				$where .= " AND titre_francais LIKE '%" . $recherche . "%'";
+			}
 		}
 
 
 		if (!empty($_POST["pays"])) {
-			
 			$pays = $_POST["pays"];
 			$where .= " AND pays='" . $pays . "'";
 		}
 
 
 		if (!empty($_POST["acteurs"])) {
-
 			$acteurs = $_POST["acteurs"];
 			$where .= " AND Iacteurs.code_indiv='" . $acteurs . "'";
 

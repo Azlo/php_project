@@ -8,9 +8,10 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="home.php?title=Accueil">Accueil</a>					</li>
+				<li><a href="accueil.php?title=Accueil">Accueil</a>					</li>
 				<li><a href="recherche.php?title=Recherche">Recherche</a>			</li>
 				<li><a href="technologie.php?title=Technologie">Technologie</a>		</li>
+				<li><a href="consignes.php?title=Consignes">Consignes</a>		</li>
 			</ul>
 		</div>
 	</div>

@@ -9,33 +9,9 @@
 ]>
 <liste_film>
 	<film>
-		<titre_original>Shichinin no samurai</titre_original>
-		<titre_francais>Sept samouraïs (Les)</titre_francais>
-		<realisateur>242</realisateur>
-		<date>1954</date>
-	</film>
-	<film>
-		<titre_original>Rashômon</titre_original>
-		<titre_francais>Rashômon</titre_francais>
-		<realisateur>242</realisateur>
-		<date>1950</date>
-	</film>
-	<film>
-		<titre_original>Saikaku ichidai onna</titre_original>
-		<titre_francais>Vie d'O'Haru, femme galante</titre_francais>
-		<realisateur>648</realisateur>
-		<date>1952</date>
-	</film>
-	<film>
-		<titre_original>Yojimbo</titre_original>
-		<titre_francais>Garde du corps (Le)</titre_francais>
-		<realisateur>242</realisateur>
-		<date>1961</date>
-	</film>
-	<film>
-		<titre_original>Tsubaki Sanjûrô</titre_original>
-		<titre_francais>Sanjuro</titre_francais>
-		<realisateur>242</realisateur>
-		<date>1962</date>
+		<titre_original>Birth of a Nation</titre_original>
+		<titre_francais>Naissance d'une nation</titre_francais>
+		<realisateur>293</realisateur>
+		<date>1915</date>
 	</film>
 </liste_film>
