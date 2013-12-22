@@ -1,6 +1,12 @@
 <!doctype html>
 <html>
-<?php include_once('head.php'); ?>
+	<head>
+		<title>Validation XML</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../select_2/select2.css" />
+	</head>
 
 	<body>
 		<?php

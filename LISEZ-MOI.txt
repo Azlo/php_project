@@ -1,0 +1,5 @@
+Pour installer le site :
+Copiez l'intégralité des fichiers de l'archive "SELAS_DUBOIS_MALLART.tar.gz" dans votre dossier "/www/".
+Utiliser le script "DBmallart" dans le dossier sql pour installer la base de donnée.
+Allez en premier sur la page "accueil.php".
+La documentation du site se trouve dans le site lui-même !

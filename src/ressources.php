@@ -29,12 +29,10 @@
 			}
 		}
 
-
 		if (!empty($_POST["pays"])) {
 			$pays = $_POST["pays"];
 			$where .= " AND pays='" . $pays . "'";
 		}
-
 
 		if (!empty($_POST["acteurs"])) {
 			$acteurs = $_POST["acteurs"];
@@ -51,7 +49,6 @@
 			$select .= ', Iacteurs.nom AS nomActeurs, Iacteurs.prenom AS prenomActeurs';
 		}
 
-
 		if (!empty($_POST["realisateur"])) {
 			$realisateur = $_POST["realisateur"];
 			$where .= " AND realisateur='" . $realisateur . "'";
@@ -66,12 +63,10 @@
 			}
 		}
 
-
 		if (!empty($_POST["date"])) {
 			$date = $_POST["date"];
 			$where .= " AND date='" . $date . "'";
 		}
-
 
 		if (!empty($_POST["couleur"])) {
 			$couleur = $_POST["couleur"];

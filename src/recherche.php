@@ -238,11 +238,15 @@ if (!empty($res)) {
 					$stmt->closeCursor();
 ?>
 						</tbody>
-
-		<form method="POST" action="xmlGenerator.php">
-			<input type="hidden" name="postQuery" value="<?php echo $sql; ?>"><br/>
-			<input class="btn" type="submit" value="Export XML">
-		</form>
+		<div class="container col-lg-2 col-md-2 col-sm-2">
+			<div class="well">
+				<form method="POST" action="xmlGenerator.php">
+					<label for="inputcache" class="control-label">Export XML</label>
+					<input id="inputcache" type="hidden" name="postQuery" value="<?php echo $sql; ?>"><br/>
+					<input class="btn btn-primary" type="submit" value="Export XML">
+				</form>
+			</div>
+		</div>
 <?php
 }
 // Sinon on affiche "aucun résultats"

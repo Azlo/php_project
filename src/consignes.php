@@ -31,7 +31,7 @@ include_once('nav.php');
 					<li>Mettez-vous par groupes de 2, voire 3 si les options sont traitées.</li>
 					<li>Rendez le projet dans une archive ".tgz" au nom des membres du groupe.</li>
 					<li>Incluez-y tous les fichiers nécéssaires pour installer votre site ainsi qu’un fichier "install.txt" donnant les explications nécéssaires.</li>
-					<li>Ajoutez un fichier de documentation décrivant le plan du site ainsi qu’une description des pages réalisées et des fonctionnalités du site.</li><li></li>
+					<li>Ajoutez un fichier de documentation décrivant le plan du site ainsi qu’une description des pages réalisées et des fonctionnalités du site.</li>
 					<li>Commentez votre code.</li>
 					<li>Date de rendu : Jeudi 9 Janvier à 14h30. Soutenances à la suite à voir avec votre chargé de TD Web (Geoffrey Cochard ou Gérard Rozsavolgyi ou Roland Garnier).</li>
 				</ul>
